@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="plantrainer.css">
+    <script type="text/javascript" src="plantrainer.js"></script>
+</head>
+
+<body onload="init();">
+<div align="center">
+
+        <!--<button onclick="startStripping();">Start Stripping!</button>-->
+        <h2>Make corrections to the plan using the dialog below then click Amend Plan</h2>
+        <table class="flightplan" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <thead>
+            <tr class="bnormal" style="background-color: white">
+                <td colspan="6">Flight Plan - <span id="hcallsign"></span></td>
+                <td align="right"><span onclick="onHamburger();">&#9776;</span></td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tright">Callsign:</td>
+                    <td><input type="text" style="width: 60px;" id="fpcallsign" /></td>
+                    <td class="tright">A/C Type:</td>
+                    <td><input type="text" id="fptype" /></td>
+                    <td class="tright">Flight Rules:</td>
+                    <td><input type="text" id="fprules" /></td>
+                    <!--<td>
+                    <select style="width: 64px;" id="fprules">
+                        <option value="IFR">IFR</option>
+                        <option value="VFR">VFR</option>
+                    </select>
+                </td>-->
+                    <td><button id="btnAmendPlan" onclick="onAmendPlan();" disabled>Amend Plan</button></td>
+                </tr>
+                <tr>
+                    <td class="tright">Depart:</td>
+                    <td><input type="text" id="fpdepart" /></td>
+                    <td class="tright">Arrive:</td>
+                    <td><input type="text" id="fparrive" /></td>
+                    <td class="tright">Alternate:</td>
+                    <td><input type="text" id="fpalternate" />
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tright">Cruise Alt:</td>
+                    <td><input type="text" id="fpcruisealt" /></td>
+                    <td class="tright">Scratchpad:</td>
+                    <td><input type="text" id="fpscratchpad" /></td>
+                    <td class="tright">Squawk:</td>
+                    <td><input type="text" id="fpsquawk" />
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="tright ttop">Route:</td>
+                    <td colspan="6"><textarea style="height: 45px; width: 500px;" id="fproute"></textarea> </td>
+                </tr>
+                <tr>
+                    <td class="tright ttop">Remarks:</td>
+                    <td colspan="6"><textarea style="height: 38px; width: 500px;" id="fpremarks"></textarea> </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <input type="hidden" id="fpinitalt" />
+
+        <p></p>
+
+
+        <table class="flightstrip-i" style="font-family: VRC; width: 800px" id="flightstrip">
+            <col style="width: 200px">
+            <col style="width: 8%">
+            <col style="width: 8%">
+            <col style="width: 58%">
+            <col style="width: 5%">
+            <col style="width: 5%">
+            <col style="width: 5%">
+            <tr>
+                <td class="bright"><span id="fscallsign"></span></td>
+                <td class="bnormal tcenter"><span id="fssquawk">0000</span></td>
+                <td class="bright tcenter">
+                    <div class="tooltip">
+                        <span id="fsdepart"></span>
+                        <span class="tooltiptext" id="fsdeparttip"> This is the departure airport</span>
+                    </div>
+                </td>
+                <td class="bright">
+                    <div class="tooltip">
+                        <span id="fsroute"></span>
+                        <span class="tooltiptext" id="fsroutetip">This is the flight route</span>
+                    </div>
+                </td>
+                <td class="bnormal"></td>
+                <td class="bnormal"></td>
+                <td class="bnormal"></td>
+            </tr>
+            <tr>
+                <td class="bright">
+                    <div class="tooltip">
+                        <span id="fstype"></span>
+                        <span class="tooltiptext" id="fstypetip">This is aircraft type and suffix</span>
+                    </div>
+                </td>
+                <td class="bnormal tcenter">
+                    <div class="tooltip">
+                        <span id="fsinitalt">000</span>
+                        <span class="tooltiptext" id="fsinitalttip">This is the inital altitude</span>
+                    </div>
+                </td>
+                <td class="bright tcenter">
+                    <div class="tooltip">
+                        <span id="fsarrive"></span>
+                        <span class="tooltiptext" id="fsarrivetip">This is the arrival airport</span>
+                    </div>
+                </td>
+                <td class="bright"></td>
+                <td class="bnormal"></td>
+                <td class="bnormal"></td>
+                <td class="bnormal"></td>
+            </tr>
+            <tr>
+                <td class="bright">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="tooltip">
+                        <span id="fsrules"></span>
+                        <span class="tooltiptext" id="fsrulestip">This is the flight rules</span>
+                    </div>
+                </td>
+                <td class="bnormal tcenter">
+                    <div class="tooltip">
+                        <span id="fscruisealt">000</span>
+                        <span class="tooltiptext" id="fscruisealttip">This is the cruise altitude</span>
+                    </div>
+                </td>
+                <td class="bright tcenter"><span id="fsalternate"></span></td>
+                <td class="bright">
+                    <div class="tooltip">
+                        <span id="fsremarks"></span>
+                        <span class="tooltiptext" id="fsremarksttip">This is the remarks</span>
+                    </div>
+                </td>
+                <td class="bnormal"></td>
+                <td class="bnormal"></td>
+                <td class="bnormal"></td>
+            </tr>
+        </table>
+
+        <table class="noborder" style="width: 800px; margin-top: 5px">
+            <tr style="color: azure; font-family: sans-serif">
+                <td width="25%">Plans Corrected: <span id="fsPlansCorrected"></span></td>
+                <td width="40%">
+                    <div class="tooltip">
+                        Fixed Score: <span id="fixedScore">0%</span>
+                        <span class="tooltiptext" id="fixedScoreTip">This is the percentage of mistakes you fixed out of the total mistakes that were presented</span>
+                    </div>
+                </td>
+                <td><button id="btnCheckMyWork" onclick="onCheckMyWork();" disabled>Check My Work</button></td>
+                <td><button id="btnNextPlan" onclick="loadNextFS();" disabled>Next Plan</button></td>
+                <td><button id="btnShowMe" onclick="onShowMe();">Show Me</button></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

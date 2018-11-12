@@ -1,0 +1,105 @@
+﻿       @font-face 
+       {
+           font-family: "VRC";
+           font-weight: bold;
+           src: url("VRC_0.ttf");
+       }
+       body {
+           background-color: black;
+       }
+       table {
+           border: 1px solid black;
+           border-collapse: collapse;
+           cursor: default;
+           padding: 5px;
+           border-spacing: 8px;
+           margin: 0;
+       }
+
+        th {
+            padding: 5px;
+        }
+        td {
+            border: 0px solid black;
+            padding: 5px;
+        }
+       .flightstrip-i {
+           background-color: rgb(175, 175, 207);
+       }
+       .flightstrip-v {
+           background-color: rgb(202, 223, 213);
+       }
+        .flightplan {
+            width: 800px;
+            height: 200px;
+            background-color: rgb(240, 240, 240);
+            font-family: sans-serif;
+            }           
+       .bnormal {
+           border: 1px solid black;
+       }
+       .bright {
+           border-right: 1px solid black;
+       }
+       .tcenter {
+           text-align: center
+       }
+       .tright {
+           text-align: right;
+       }
+       input {
+           width: 60px;
+           height: 20px;
+           border: none;
+       }
+       .ttop {
+           vertical-align: text-top;
+       }
+       button {
+           width: 110px;
+       }
+       .noborder {
+           border: 0;
+       }
+       textarea {
+           resize: none;
+           font-family: sans-serif;
+           border: none;
+           font-size: smaller;
+       }
+       h2 {
+           font-family: sans-serif;
+           font-weight:100;
+           color: azure
+       }
+    .notvisible {
+            visibility: hidden;
+        }
+	 .tooltip {
+		position: relative;
+		display: inline-block;
+		/*border-bottom: 1px dotted black;*/
+		}
+
+    .tooltip .tooltiptext {
+        font-family: sans-serif;
+        text-shadow: none;
+        text-decoration: none;
+        visibility: hidden;
+        background-color: black;
+        color: azure;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px;
+	    font-size: smaller;
+        position: absolute;
+        z-index: 1;
+        width: 160px;
+        bottom: 30px;
+        left: 50%; 
+        margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
